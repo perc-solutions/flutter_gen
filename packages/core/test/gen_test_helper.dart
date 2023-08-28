@@ -38,7 +38,7 @@ Future<void> expectedAssetsGen(
 /// Colors
 Future<void> expectedColorsGen(
     String pubspec, String generated, String fact) async {
-  await FlutterGenerator(File(pubspec), colorsName: p.basename(generated))
+  await FlutterGenerator(File(pubspec), colorsName: basename(generated))
       .build();
 
   final pubspecFile = File(pubspec);

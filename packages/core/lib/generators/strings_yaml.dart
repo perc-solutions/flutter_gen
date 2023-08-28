@@ -1,11 +1,9 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'strings_yaml.g.dart';
 
 @JsonSerializable()
 class StringsYaml {
-
   StringsYaml(this.strings);
 
   @JsonKey(name: 'strings', required: true)

@@ -66,11 +66,9 @@ Future<void> expectedFontsGen(
 
   final pubspecFile = File(pubspec);
   final config = loadPubspecConfig(pubspecFile);
-  final formatter = DartFormatter(
-      pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
+  final formatter = DartFormatter(pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
-  final actual = generateFonts(
-      formatter, config.pubspec.flutter.fonts, config.pubspec.flutterGen.fonts);
+  final actual = generateFonts(formatter, config.pubspec.flutter.fonts, config.pubspec.flutterGen.fonts);
   final expected = formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
 
   expect(

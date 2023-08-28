@@ -59,7 +59,8 @@ class FlutterGen {
     required this.fonts,
     required this.integrations,
     required this.colors,
-    required this.strings,
+    this.strings,
+    this.appResources,
   });
 
   @JsonKey(name: 'output', required: true)
@@ -82,6 +83,9 @@ class FlutterGen {
 
   @JsonKey(name: 'strings', required: false)
   final FlutterGenStrings? strings;
+
+  @JsonKey(name: 'app_resources', required: false)
+  final FlutterGenAppResources? appResources;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
@@ -228,7 +232,6 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
 
 @JsonSerializable()
 class FlutterGenStrings {
-
   @JsonKey(name: 'enabled', required: true)
   final bool enabled;
 
@@ -274,4 +277,36 @@ class FlutterGenElementStringsOutputs extends FlutterGenElementOutputs {
   bool get isCamelCaseStyle => style == camelCaseStyle;
 
   factory FlutterGenElementStringsOutputs.fromJson(Map json) => _$FlutterGenElementStringsOutputsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterGenAppResources {
+  FlutterGenAppResources(
+    this.enabled, {
+    this.className = 'AppResources',
+    this.generateRuntimeEnv = true,
+    this.generateThemeClass = false,
+    this.themeClassName = 'AppTheme',
+    this.themeClassConstructor = 'AppTheme()',
+  });
+
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
+
+  @JsonKey(name: 'gen_runtime_env', required: false)
+  final bool generateRuntimeEnv;
+
+  @JsonKey(name: 'class_name', required: false)
+  final String className;
+
+  @JsonKey(name: 'gen_theme_class', required: false)
+  final bool generateThemeClass;
+
+  @JsonKey(name: 'theme_class_name', required: false)
+  final String themeClassName;
+
+  @JsonKey(name: 'theme_class_constructor', required: false)
+  final String themeClassConstructor;
+
+  factory FlutterGenAppResources.fromJson(Map json) => _$FlutterGenAppResourcesFromJson(json);
 }

@@ -12,9 +12,10 @@ import 'package:path/path.dart';
 import 'package:xml/xml.dart';
 import 'package:yaml/yaml.dart';
 
-String generateStrings(File pubspecFile,
-    DartFormatter formatter,
-    FlutterGenStrings stringsConfig,
+String generateStrings(
+  File pubspecFile,
+  DartFormatter formatter,
+  FlutterGenStrings stringsConfig,
 ) {
   if (stringsConfig.inputs.isEmpty) {
     throw const InvalidSettingsException('The value of "flutter_gen/strings" is incorrect.');

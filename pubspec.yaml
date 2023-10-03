@@ -1,4 +1,4 @@
-name: perc_flutter_gen
+name: flutter_gen
 
 environment:
   sdk: ">=2.17.0 <4.0.0"

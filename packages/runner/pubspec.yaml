@@ -1,4 +1,4 @@
-name: flutter_gen_runner
+name: perc_flutter_gen_runner
 description: The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
 version: 5.3.2
 homepage: https://github.com/FlutterGen/flutter_gen

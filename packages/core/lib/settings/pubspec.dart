@@ -59,6 +59,8 @@ class FlutterGen {
     required this.fonts,
     required this.integrations,
     required this.colors,
+    this.strings,
+    this.appResources,
   });
 
   @JsonKey(name: 'output', required: true)
@@ -78,6 +80,12 @@ class FlutterGen {
 
   @JsonKey(name: 'colors', required: true)
   final FlutterGenColors colors;
+
+  @JsonKey(name: 'strings', required: false)
+  final FlutterGenStrings? strings;
+
+  @JsonKey(name: 'app_resources', required: false)
+  final FlutterGenAppResources? appResources;
 
   factory FlutterGen.fromJson(Map json) => _$FlutterGenFromJson(json);
 }
@@ -220,4 +228,85 @@ class FlutterGenElementAssetsOutputs extends FlutterGenElementOutputs {
 
   factory FlutterGenElementAssetsOutputs.fromJson(Map json) =>
       _$FlutterGenElementAssetsOutputsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterGenStrings {
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
+
+  @JsonKey(name: 'inputs', required: true)
+  final List<String> inputs;
+
+  @JsonKey(name: 'outputs', required: true)
+  final FlutterGenElementStringsOutputs outputs;
+
+  FlutterGenStrings({
+    required this.enabled,
+    required this.inputs,
+    required this.outputs,
+  });
+
+  factory FlutterGenStrings.fromJson(Map json) => _$FlutterGenStringsFromJson(json);
+}
+
+// TODO(brads): the FlutterGenElementAssetsOutputs has a required packageParameterEnabled field
+// TODO(brads): need to come up with a design that avoids the redundancy here
+@JsonSerializable()
+class FlutterGenElementStringsOutputs extends FlutterGenElementOutputs {
+  static const String dotDelimiterStyle = 'dot-delimiter';
+  static const String snakeCaseStyle = 'snake-case';
+  static const String camelCaseStyle = 'camel-case';
+
+  FlutterGenElementStringsOutputs({
+    required String className,
+    required this.style,
+  }) : super(className: className) {
+    if (style != dotDelimiterStyle && style != snakeCaseStyle && style != camelCaseStyle) {
+      throw ArgumentError.value(style, 'style');
+    }
+  }
+
+  @JsonKey(name: 'style', required: true)
+  final String style;
+
+  bool get isDotDelimiterStyle => style == dotDelimiterStyle;
+
+  bool get isSnakeCaseStyle => style == snakeCaseStyle;
+
+  bool get isCamelCaseStyle => style == camelCaseStyle;
+
+  factory FlutterGenElementStringsOutputs.fromJson(Map json) => _$FlutterGenElementStringsOutputsFromJson(json);
+}
+
+@JsonSerializable()
+class FlutterGenAppResources {
+  FlutterGenAppResources(
+    this.enabled, {
+    this.className = 'AppResources',
+    this.generateRuntimeEnv = true,
+    this.generateThemeClass = false,
+    this.themeClassName = 'AppTheme',
+    this.themeClassConstructor = 'AppTheme()',
+  });
+
+  @JsonKey(name: 'enabled', required: true)
+  final bool enabled;
+
+  @JsonKey(name: 'gen_runtime_env', required: false)
+  final bool generateRuntimeEnv;
+
+  @JsonKey(name: 'class_name', required: false)
+  final String className;
+
+  @JsonKey(name: 'gen_theme_class', required: false)
+  final bool generateThemeClass;
+
+  @JsonKey(name: 'theme_class_name', required: false)
+  final String themeClassName;
+
+  @JsonKey(name: 'theme_class_constructor', required: false)
+  final String themeClassConstructor;
+
+  factory FlutterGenAppResources.fromJson(Map json) => _$FlutterGenAppResourcesFromJson(json);
 }

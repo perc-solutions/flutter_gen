@@ -18,7 +18,7 @@ String generateStrings(
   FlutterGenStrings stringsConfig,
 ) {
   if (stringsConfig.inputs.isEmpty) {
-    throw const InvalidSettingsException('The value of "flutter_gen/strings" is incorrect.');
+    throw const InvalidSettingsException('The value of "flutter_gen/strings/inputs" is incorrect.');
   }
 
   final buffer = StringBuffer();

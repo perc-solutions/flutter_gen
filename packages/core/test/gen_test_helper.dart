@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/flutter_generator.dart';
+import 'package:flutter_gen_core/generators/app_resources_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
@@ -89,6 +90,25 @@ Future<void> expectedStringsGen(String pubspec, String generated, String fact) a
   final actual = generateStrings(pubspecFile, formatter, config.pubspec.flutterGen.strings!);
   final expected = formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
 
-  expect(File(generated).readAsStringSync(), isNotEmpty);
+  expect(
+    File(generated).readAsStringSync(),
+    isNotEmpty,
+  );
   expect(actual, expected);
+}
+
+/// AppResources
+Future<void> expectedAppResourcesGen(String pubspec, String generated, String fact) async {
+  await FlutterGenerator(File(pubspec), appResourcesName: basename(generated)).build();
+
+  final pubspecFile = File(pubspec);
+  final config = loadPubspecConfig(pubspecFile);
+  final formatter = DartFormatter(pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
+
+  final actual = generateAppResources(pubspecFile, formatter, config.pubspec.flutterGen.appResources!);
+  // final expected = formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
+  print('actual:\n$actual');
+
+  // expect(File(generated).readAsStringSync(), isNotEmpty,);
+  // expect(actual, expected);
 }

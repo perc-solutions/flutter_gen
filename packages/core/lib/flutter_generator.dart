@@ -89,7 +89,7 @@ class FlutterGenerator {
     if (flutterGen.appResources != null) {
       var flutterGenAppResources = flutterGen.appResources!;
       if (flutterGen.appResources!.enabled && flutterGenAppResources.generateRuntimeEnv) {
-        final generated = generateAppResources(pubspecFile, formatter, flutterGenAppResources);
+        final generated = generateAppResources(pubspecFile, formatter, flutterGen);
         final resourcesPath = normalize(join(pubspecFile.parent.path, output, stringsName));
         writer(generated, resourcesPath);
         stdout.writeln('Generated: $resourcesPath');

@@ -105,7 +105,7 @@ Future<void> expectedAppResourcesGen(String pubspec, String generated, String fa
   final config = loadPubspecConfig(pubspecFile);
   final formatter = DartFormatter(pageWidth: config.pubspec.flutterGen.lineLength, lineEnding: '\n');
 
-  final actual = generateAppResources(pubspecFile, formatter, config.pubspec.flutterGen.appResources!);
+  final actual = generateAppResources(pubspecFile, formatter, config.pubspec.flutterGen);
   // final expected = formatter.format(File(fact).readAsStringSync().replaceAll('\r\n', '\n'));
   print('actual:\n$actual');
 

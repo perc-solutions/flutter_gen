@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:flutter_gen_core/generators/generator_helper.dart';
 import 'package:flutter_gen_core/settings/pubspec.dart';
-
-import '../utils/error.dart';
+import 'package:flutter_gen_core/utils/error.dart';
 
 String generateAppResources(File pubspecFile, DartFormatter formatter, FlutterGen flutterGen) {
   // TODO(brads):  add any validation needed here with error messaging prior to generation
@@ -15,6 +14,8 @@ String generateAppResources(File pubspecFile, DartFormatter formatter, FlutterGe
   final buffer = StringBuffer();
   buffer.writeln(header);
   buffer.writeln(ignore);
+  buffer.writeln();
+  buffer.writeln('import \'package:common_app_utils/common_app_utils.dart\';');
   buffer.writeln();
   buffer.writeln('class ${appResourcesConfig.className} {');
   // field declarations
@@ -29,7 +30,7 @@ String generateAppResources(File pubspecFile, DartFormatter formatter, FlutterGe
     ));
   }
 
-  if (flutterGen.assets != null && flutterGen.assets.enabled) {
+  if (flutterGen.assets.enabled) {
     buffer.write(_writeStaticFinalVariableDeclaration(
       'AppGraphics',
       'graphics',
@@ -37,6 +38,17 @@ String generateAppResources(File pubspecFile, DartFormatter formatter, FlutterGe
       late: true,
     ));
   }
+
+  if (flutterGen.colors.enabled) {
+    buffer.write(
+        _writeStaticFinalVariableDeclaration('AppColors', 'colors', comment: 'color resources', varValue: 'AppColors.instance'));
+  }
+
+  if (flutterGen.strings != null && flutterGen.strings!.enabled) {
+    buffer.write(_writeStaticFinalVariableDeclaration('AppStrings', 'strings',
+        comment: 'string resources', varValue: 'AppStrings.instance'));
+  }
+  // TODO(brads):  add support for - Dimensions, Constants, TextStyles, ...
 
   buffer.writeln('');
   buffer.writeln('${appResourcesConfig.className}._();');
@@ -63,6 +75,6 @@ String _writeStaticFinalVariableDeclaration(
   }
   final modifiers = (late) ? 'static late final' : 'static final';
   final variable = (varValue == null) ? '$modifiers $varType $varName;' : '$modifiers $varType $varName = $varValue;';
-  buffer.writeln('$variable');
+  buffer.writeln(variable);
   return buffer.toString();
 }

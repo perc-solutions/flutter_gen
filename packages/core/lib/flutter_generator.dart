@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
+import 'package:flutter_gen_core/generators/app_resources_generator.dart';
 import 'package:flutter_gen_core/generators/assets_generator.dart';
 import 'package:flutter_gen_core/generators/colors_generator.dart';
 import 'package:flutter_gen_core/generators/fonts_generator.dart';
@@ -16,6 +17,7 @@ class FlutterGenerator {
     this.colorsName = 'colors.gen.dart',
     this.fontsName = 'fonts.gen.dart',
     this.stringsName = 'strings.gen.dart',
+    this.appResourcesName = 'app_resources.gen.dart',
   });
 
   final File pubspecFile;
@@ -23,6 +25,7 @@ class FlutterGenerator {
   final String colorsName;
   final String fontsName;
   final String stringsName;
+  final String appResourcesName;
 
   Future<void> build({Config? config, FileWriter? writer}) async {
     config ??= loadPubspecConfigOrNull(pubspecFile);
@@ -80,6 +83,16 @@ class FlutterGenerator {
         final stringsPath = normalize(join(pubspecFile.parent.path, output, stringsName));
         writer(generated, stringsPath);
         stdout.writeln('Generated:  $stringsPath');
+      }
+    }
+
+    if (flutterGen.appResources != null) {
+      var flutterGenAppResources = flutterGen.appResources!;
+      if (flutterGen.appResources!.enabled && flutterGenAppResources.generateRuntimeEnv) {
+        final generated = generateAppResources(pubspecFile, formatter, flutterGenAppResources);
+        final resourcesPath = normalize(join(pubspecFile.parent.path, output, stringsName));
+        writer(generated, resourcesPath);
+        stdout.writeln('Generated: $resourcesPath');
       }
     }
 

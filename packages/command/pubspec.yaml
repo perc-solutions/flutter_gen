@@ -21,10 +21,6 @@ dependencies:
       ref: feature/add-app-resources-gen
   args: ^2.0.0
 
-dependency_overrides:
-  flutter_gen_core:
-    path: ../core
-
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.16.0

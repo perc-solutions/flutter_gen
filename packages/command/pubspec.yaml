@@ -13,7 +13,12 @@ executables:
   fluttergen: flutter_gen_command
 
 dependencies:
-  flutter_gen_core: 5.3.3
+  #  flutter_gen_core: 5.3.3
+  flutter_gen_core:
+    git:
+      url: https://github.com/perc-solutions/flutter_gen.git
+      path: packages/core
+      ref: feature/add-app-resources-gen
   args: ^2.0.0
 
 dependency_overrides:

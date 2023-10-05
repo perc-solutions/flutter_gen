@@ -24,7 +24,7 @@ void main(List<String> args) {
   parser.addFlag(
     'version',
     abbr: 'v',
-    help: 'FlutterGen version',
+    help: '(Perc) FlutterGen version',
     defaultsTo: false,
   );
 

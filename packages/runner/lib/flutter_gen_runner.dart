@@ -25,6 +25,7 @@ class FlutterGenBuilder extends Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
+    print('Perc flutter_gen');
     if (_config == null) return;
     final state = await _createState(_config!, buildStep);
     if (state.shouldSkipGenerate(_currentState)) return;

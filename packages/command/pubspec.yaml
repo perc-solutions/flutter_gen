@@ -16,10 +16,6 @@ dependencies:
   flutter_gen_core: 5.4.0
   args: ^2.0.0
 
-dependency_overrides:
-  flutter_gen_core:
-    path: ../core
-
 dev_dependencies:
   lints: any # Ignoring the version to allow editing across SDK versions.
   test: ^1.16.0

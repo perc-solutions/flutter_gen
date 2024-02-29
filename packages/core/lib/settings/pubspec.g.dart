@@ -68,38 +68,21 @@ FlutterGen _$FlutterGenFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          requiredKeys: const [
-            'output',
-            'line_length',
-            'parse_metadata',
-            'assets',
-            'fonts',
-            'integrations',
-            'colors',
-            'strings'
-          ],
+          requiredKeys: const ['output', 'line_length', 'assets', 'fonts', 'integrations', 'colors'],
         );
         final val = FlutterGen(
           output: $checkedConvert('output', (v) => v as String),
           lineLength: $checkedConvert('line_length', (v) => v as int),
-          parseMetadata: $checkedConvert('parse_metadata', (v) => v as bool),
-          assets: $checkedConvert(
-              'assets', (v) => FlutterGenAssets.fromJson(v as Map)),
-          fonts: $checkedConvert(
-              'fonts', (v) => FlutterGenFonts.fromJson(v as Map)),
-          integrations: $checkedConvert(
-              'integrations', (v) => FlutterGenIntegrations.fromJson(v as Map)),
-          colors: $checkedConvert(
-              'colors', (v) => FlutterGenColors.fromJson(v as Map)),
-          strings: $checkedConvert(
-              'strings', (v) => FlutterGenStrings.fromJson(v as Map)),
+          assets: $checkedConvert('assets', (v) => FlutterGenAssets.fromJson(v as Map)),
+          fonts: $checkedConvert('fonts', (v) => FlutterGenFonts.fromJson(v as Map)),
+          integrations: $checkedConvert('integrations', (v) => FlutterGenIntegrations.fromJson(v as Map)),
+          colors: $checkedConvert('colors', (v) => FlutterGenColors.fromJson(v as Map)),
+          strings: $checkedConvert('strings', (v) => v == null ? null : FlutterGenStrings.fromJson(v as Map)),
+          appResources: $checkedConvert('app_resources', (v) => v == null ? null : FlutterGenAppResources.fromJson(v as Map)),
         );
         return val;
       },
-      fieldKeyMap: const {
-        'lineLength': 'line_length',
-        'parseMetadata': 'parse_metadata'
-      },
+      fieldKeyMap: const {'lineLength': 'line_length', 'appResources': 'app_resources'},
     );
 
 FlutterGenColors _$FlutterGenColorsFromJson(Map json) => $checkedCreate(
@@ -268,4 +251,31 @@ FlutterGenElementStringsOutputs _$FlutterGenElementStringsOutputsFromJson(Map js
         return val;
       },
       fieldKeyMap: const {'className': 'class_name'},
+    );
+
+FlutterGenAppResources _$FlutterGenAppResourcesFromJson(Map json) => $checkedCreate(
+      'FlutterGenAppResources',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          requiredKeys: const ['enabled'],
+        );
+        final val = FlutterGenAppResources(
+          $checkedConvert('enabled', (v) => v as bool),
+          className: $checkedConvert('class_name', (v) => v as String? ?? 'AppResources'),
+          generateRuntimeEnv: $checkedConvert('gen_runtime_env', (v) => v as bool? ?? true),
+          generateThemeClass: $checkedConvert('gen_theme_class', (v) => v as bool? ?? false),
+          themeClassName: $checkedConvert('theme_class_name', (v) => v as String? ?? 'AppTheme'),
+          themeClassConstructor: $checkedConvert('theme_class_constructor', (v) => v as String? ?? 'AppTheme()'),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'className': 'class_name',
+        'generateRuntimeEnv': 'gen_runtime_env',
+        'generateThemeClass': 'gen_theme_class',
+        'themeClassName': 'theme_class_name',
+        'themeClassConstructor': 'theme_class_constructor'
+      },
     );
